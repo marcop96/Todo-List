@@ -7,12 +7,18 @@ const todos = ref([
   {
     id: id++,
     text: "placeholder",
+    completed: false,
   },
 ]);
 
+function toggleComplete(task) {
+  task.completed = !task.completed;
+  console.log(task.completed);
+}
+
 function addTask() {
   console.log(newTodo.value);
-  todos.value.push({ id: id++, text: newTodo.value });
+  todos.value.push({ id: id++, text: newTodo.value, completed: false });
 }
 </script>
 
@@ -23,8 +29,11 @@ function addTask() {
       </NInput>
       <n-button size="small" @click="addTask">Add task </n-button>
     </div>
+  </div>
+
+  <div class="flex place-content-center">
     <ul>
-      <li v-for="todo in todos" :key="todo.id">
+      <li v-for="todo in todos" :key="todo.id" @click="toggleComplete(todo)">
         {{ todo.text }}
       </li>
     </ul>
